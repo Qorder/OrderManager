@@ -13,7 +13,7 @@
     		<RowDefinition/>
     		<RowDefinition Height="0*"/>
     	</Grid.RowDefinitions>
-    	<Button Content="add mock product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="Button_Click" Height="45" Margin="270,30,0,0"/>
+    	<Button x:Name="mockButton" Content="add mock product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="Button_Click" Height="45" Margin="270,30,0,0"/>
     	<TreeView x:Name="InboxTreeView" HorizontalAlignment="Left" Margin="0,97.5,0,0" VerticalAlignment="Stretch" Width="500" MouseRightButtonUp="InboxTreeView_MouseRightButtonUp"/>
 		    	
 				<TreeView x:Name="ServicedTreeView" HorizontalAlignment="Right" Margin="0,97.5,0,0" VerticalAlignment="Stretch" Width="500"/>

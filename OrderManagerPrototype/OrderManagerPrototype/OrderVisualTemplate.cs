@@ -12,6 +12,9 @@ using System.Windows.Shapes;
 
 namespace OrderManagerPrototype
 {
+    using Events;
+    using Updater;
+
     public class OrderVisualTemplate
     {
 
@@ -33,7 +36,32 @@ namespace OrderManagerPrototype
 
 		//Remove order event
 		public event EventHandler removeEvent;
-		
+
+        #region Constructor
+
+        public OrderVisualTemplate()
+        {
+            this.product = new Product("Product",10.10,"your notes here...");
+            Initialize();
+        }
+
+        public OrderVisualTemplate(Product product)
+        {
+            this.product = product;
+            Initialize();
+        }
+
+        #endregion
+
+        #region Properties
+
+        Product product
+        {
+            get;
+            set;
+        }
+
+        #endregion
         #region Initialize Assets
 
         void InitializeTreeView()
@@ -95,7 +123,7 @@ namespace OrderManagerPrototype
             productNameLabel.Width = 104.7;
             
             //Add product name
-            productNameLabel.Content = "product name";
+            productNameLabel.Content = product.Name;
             productViewbox.Child = productNameLabel;
             this.wrapPanel.Children.Add(productViewbox);
 
@@ -110,7 +138,7 @@ namespace OrderManagerPrototype
 			Random rand = new Random();
 			float price = rand.Next(1,1000);
 			
-            priceLabel.Content = Math.Round(price/11,2) + " €";
+            priceLabel.Content = Math.Round(product.Price,2) + " €";
             priceLabel.Width = 147.153;
 
             priceViewbox.Child = priceLabel;
@@ -121,7 +149,7 @@ namespace OrderManagerPrototype
             notesViewbox.Width = 449;
 
             notesLabel = new Label();
-            notesLabel.Content = "Your notes here..";
+            notesLabel.Content = product.Notes;
             notesLabel.Width = 283.576;
             notesLabel.Height = 49.172;
 
@@ -155,9 +183,7 @@ namespace OrderManagerPrototype
 
         #endregion
 
-        #region Constructor
-
-        public OrderVisualTemplate()
+        public void Initialize()
         {
             InitializeTreeView();
             InitializeWrapPanel();
@@ -166,7 +192,6 @@ namespace OrderManagerPrototype
 			this.border.Child=wrapPanel;
         }
 
-        #endregion
 		
 		#region Get Template Property
 		

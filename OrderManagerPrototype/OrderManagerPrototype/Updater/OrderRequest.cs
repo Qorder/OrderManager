@@ -1,33 +1,27 @@
 ﻿using System;
 using System.Net;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace OrderManagerPrototype.Updater
 {
+    //TODO: use it if manual parsing is required
 	public class OrderRequest
-	{
-		public OrderRequest()
+	{		
+		static public JObject Execute(string url)
 		{
-		}
-		
-		public void Execute()
-		{
-		/*	var request = WebRequest.Create(url);
-			string text;
+			var request = WebRequest.Create(url);
 			var response = (HttpWebResponse) request.GetResponse();
+
+            string text;
 
 			using (var sr = new StreamReader(response.GetResponseStream()))
 			{
     			text = sr.ReadToEnd();
-			}*/
+			}
+
+            return(JObject.Parse(text));
 		}
 	}
 }
