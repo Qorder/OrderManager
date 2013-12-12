@@ -92,3 +92,4 @@ C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManager
 C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\obj\Debug\OrderManagerPrototype.exe
 C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\obj\Debug\OrderManagerPrototype.pdb
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\obj\Debug\OrderManagerPrototype.csprojResolveAssemblyReference.cache

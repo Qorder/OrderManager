@@ -24,6 +24,8 @@ namespace OrderManagerPrototype
     public partial class MainWindow : Window
     {
         Requester requester;
+        Thread requesterThread;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace OrderManagerPrototype
            //requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0");
             requester = new Requester("http://83.212.118.113/mockJsons/mockCategoryJson.json");
 
-            Thread t = new Thread(
+            requesterThread = new Thread(
                 o =>
                 {
                     while(true)
@@ -52,7 +54,7 @@ namespace OrderManagerPrototype
                     }));
                 }
              });
-            t.Start();
+            requesterThread.Start();
 
         }
 
@@ -126,5 +128,10 @@ namespace OrderManagerPrototype
 		}
 		
 		#endregion
+
+        private void OrderManager_Closed(object sender, EventArgs e)
+        {
+            requesterThread.Abort();
+        }
     }
 }
