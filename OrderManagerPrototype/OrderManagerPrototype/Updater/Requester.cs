@@ -14,7 +14,7 @@ namespace OrderManagerPrototype.Updater
         #region Declarations
 
         string requestURL;
-        Stopwatch sw;
+        //Stopwatch sw;
 
         #endregion
 
@@ -23,8 +23,8 @@ namespace OrderManagerPrototype.Updater
         public Requester(string requestURL)
         {
             this.requestURL = requestURL;
-            sw = new Stopwatch();
-            sw.Start();
+            //sw = new Stopwatch();
+            //sw.Start();
             products = new List<Product>();
             Flag = false;
         }
@@ -48,22 +48,25 @@ namespace OrderManagerPrototype.Updater
         #endregion
 
         public void Update()
-        {         
-                if (sw.ElapsedMilliseconds / 1000 > 5) //66
-                {
-                    sw.Stop();
-                    sw.Reset();
-                    sw.Start();
+        {
+            //Note: changed stopwatch with sleep for performance
+            /* if (sw.ElapsedMilliseconds / 1000 > 5) //66
+             {
+                 sw.Stop();
+                 sw.Reset();
+                 sw.Start();*/
 
-                    products = null;
-                    products = JsonUtil.GetProductList(requestURL);
+            System.Threading.Thread.Sleep(5000);
 
-                    if (products != null)
-                    {
-                        Flag = true;
-                    }
-                }
+            products = null;
+            products = JsonUtil.GetProductList(requestURL);
+
+            if (products != null)
+            {
+                Flag = true;
+            }
         }
+    
 
     }
 }

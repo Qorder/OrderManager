@@ -18,9 +18,7 @@ namespace OrderManagerPrototype
 {
     using Events;
     using Updater;
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         Requester requester;

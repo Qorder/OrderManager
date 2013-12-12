@@ -14,8 +14,7 @@ namespace OrderManagerPrototype.Updater
             {
                 List<Product> products = new List<Product>();
                 using (WebClient wc = new WebClient())
-                {
-                 
+                {                 
                     var json = wc.DownloadString(url);
                     Product product = JsonConvert.DeserializeObject<Product>(json);
                     products.Add(product);

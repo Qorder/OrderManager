@@ -1,0 +1,8 @@
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\obj\Debug\OrderManagerPrototypeTests.csprojResolveAssemblyReference.cache
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\bin\Debug\OrderManagerPrototypeTests.dll
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\bin\Debug\OrderManagerPrototypeTests.pdb
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\bin\Debug\OrderManagerPrototype.exe
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\bin\Debug\OrderManagerPrototype.pdb
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\obj\Debug\OrderManagerPrototypeTests.dll
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototypeTests\obj\Debug\OrderManagerPrototypeTests.pdb

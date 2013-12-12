@@ -58,5 +58,24 @@ namespace OrderManagerPrototype.Updater
 
         #endregion
 
+        #region Override Equality
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            Product p = obj as Product;
+            if ((Object)p == null)
+            {
+                return false;
+            }
+
+            return ((this.Name == p.Name) && (this.Price == p.Price) && (this.Notes == p.Notes));
+        }
+
+        #endregion
     }
 }
