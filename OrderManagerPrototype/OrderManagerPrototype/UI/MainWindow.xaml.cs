@@ -27,7 +27,9 @@ namespace OrderManagerPrototype
         public MainWindow()
         {
             InitializeComponent();
-
+            AdjustTreeWidth();
+            this.MinWidth = this.Width;
+            this.MinHeight = 500;
            //requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0");
             requester = new Requester("http://83.212.118.113/mockJsons/mockCategoryJson.json");
 
@@ -46,9 +48,9 @@ namespace OrderManagerPrototype
                         {
                             OrderVisualTemplate mock1 = new OrderVisualTemplate(product);
                             mock1.removeEvent += removeOrderEvent;
-                            this.InboxTreeView.Items.Add(mock1.OrderTemplate);         
+                            this.InboxView.Items.Add(mock1.OrderTemplate);         
                         }
-                        this.InboxCounter.Content = this.InboxTreeView.Items.Count;
+                        this.InboxCounter.Content = this.InboxView.Items.Count;
                     }));
                 }
              });
@@ -60,23 +62,13 @@ namespace OrderManagerPrototype
         {
 			OrderVisualTemplate mock1 =new OrderVisualTemplate();
 			mock1.removeEvent+=removeOrderEvent;
-			this.InboxTreeView.Items.Add(mock1.OrderTemplate);
-			this.InboxCounter.Content=this.InboxTreeView.Items.Count;
+			this.InboxView.Items.Add(mock1.OrderTemplate);
+			this.InboxCounter.Content=this.InboxView.Items.Count;
 		}
 				
-	    private void InboxTreeView_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+	    private void InboxView_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
 	    {
-			if(InboxTreeView.SelectedItem!=null)
-			{
-				OrderVisualTemplate mock1 =new OrderVisualTemplate();
-				mock1.OrderTemplate = (Border)InboxTreeView.SelectedItem;
-				InboxTreeView.Items.Remove(InboxTreeView.SelectedItem);
-				this.ServicedTreeView.Items.Add(mock1.OrderTemplate);
-			
-				//TODO:Override treeview to create custom event for items.add / remove
-				this.ServicedCounter.Content=this.ServicedTreeView.Items.Count;
-				this.InboxCounter.Content=this.InboxTreeView.Items.Count;
-			}
+            SwitchOrderTree();
 	    }
 
 		#region Handle Events
@@ -85,15 +77,12 @@ namespace OrderManagerPrototype
         {
             OrderVisualTemplate mock1 = new OrderVisualTemplate();
             mock1.removeEvent += removeOrderEvent;
-           // button2.PerformClick();
-            this.InboxTreeView.Dispatcher.BeginInvoke(
+            this.InboxView.Dispatcher.BeginInvoke(
            (Action)(() =>
            {
-               this.InboxTreeView.Items.Add(mock1.OrderTemplate);
-               this.InboxCounter.Content = this.InboxTreeView.Items.Count;
+               this.InboxView.Items.Add(mock1.OrderTemplate);
+               this.InboxCounter.Content = this.InboxView.Items.Count;
            }));
-  
-        
 
         }
 
@@ -102,34 +91,84 @@ namespace OrderManagerPrototype
         {
 			OrderEventArgs eventArgs = (OrderEventArgs)e;
 
-			for(int i=0;i<ServicedTreeView.Items.Count;i++)
+			for(int i=0;i<ServicedView.Items.Count;i++)
 			{
-				if(ServicedTreeView.Items[i]==eventArgs.VTemplate.OrderTemplate)
+				if(ServicedView.Items[i]==eventArgs.VTemplate.OrderTemplate)
 				{
-					ServicedTreeView.Items.RemoveAt(i);
-					this.ServicedCounter.Content=this.ServicedTreeView.Items.Count;
+					ServicedView.Items.RemoveAt(i);
+					this.ServicedCounter.Content=this.ServicedView.Items.Count;
 
 					return;
 				}
 			}
 			
-			for(int i=0;i<InboxTreeView.Items.Count;i++)
+			for(int i=0;i<InboxView.Items.Count;i++)
 			{
-				if(InboxTreeView.Items[i]==eventArgs.VTemplate.OrderTemplate)
+				if(InboxView.Items[i]==eventArgs.VTemplate.OrderTemplate)
 				{
-					InboxTreeView.Items.RemoveAt(i);
-					this.InboxCounter.Content=this.InboxTreeView.Items.Count;
+					InboxView.Items.RemoveAt(i);
+					this.InboxCounter.Content=this.InboxView.Items.Count;
 					
 					return;
 				}
 			}
 		}
-		
-		#endregion
+
+        //TODO: include system.windows.forms 
+        /*Maximize event
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0112) // WM_SYSCOMMAND
+            {
+                if (m.WParam == new IntPtr(0xF030))
+                {
+                     AdjustTreeWidth();
+                }
+            }
+            base.WndProc(ref m);
+        }*/
+
+        #endregion
+
+        #region Helper Methods
+
+        private void AdjustTreeWidth()
+        {
+            InboxView.Width = this.Width / 2 - 20;
+            ServicedView.Width = this.Width / 2 - 20;
+        }
+
+        private void SwitchOrderTree()
+        {
+            if (InboxView.SelectedItem != null)
+            {
+                OrderVisualTemplate mock1 = new OrderVisualTemplate();
+                mock1.OrderTemplate = (Border)InboxView.SelectedItem;
+                InboxView.Items.Remove(InboxView.SelectedItem);
+                this.ServicedView.Items.Add(mock1.OrderTemplate);
+                //TODO:Override the view control to create custom event for items.add / remove
+                this.ServicedCounter.Content = this.ServicedView.Items.Count;
+                this.InboxCounter.Content = this.InboxView.Items.Count;
+                this.InboxView.SelectedIndex = -1;
+            }
+
+        }
+        #endregion
 
         private void OrderManager_Closed(object sender, EventArgs e)
         {
             requesterThread.Abort();
         }
+
+        private void OrderManager_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            AdjustTreeWidth();
+        }
+
+        private void InboxView_TouchMove(object sender, TouchEventArgs e)
+        {
+            SwitchOrderTree();
+        }
+
     }
 }
