@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace OrderManagerPrototype.Updater
+namespace OrderManagerPrototype.Model
 {
     public class Product
     {
@@ -54,6 +54,14 @@ namespace OrderManagerPrototype.Updater
         {
             get;
             set;
+        }
+
+        static public int Fields
+        {
+            get
+            {
+                return 3;
+            }
         }
 
         #endregion

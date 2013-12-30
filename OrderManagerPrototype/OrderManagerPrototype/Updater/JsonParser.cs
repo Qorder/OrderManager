@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 namespace OrderManagerPrototype.Updater
 {
+    using Model;
+
     public class JsonParser
     {
         #region Static Properties

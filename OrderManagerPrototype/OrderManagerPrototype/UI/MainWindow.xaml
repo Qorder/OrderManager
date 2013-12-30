@@ -15,10 +15,10 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Button x:Name="mockButton" Content="add mock product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="Button_Click" Height="45" Margin="270,30,0,0"/>
-        <ListView x:Name="InboxView" HorizontalAlignment="Left" Margin="0,98,0,0" VerticalAlignment="Stretch" Width="500" MouseRightButtonUp="InboxView_MouseRightButtonUp"  Grid.ColumnSpan="2" TouchMove="InboxView_TouchMove">
-        </ListView>
+        <TreeView x:Name="InboxView" HorizontalAlignment="Left" Margin="0,98,0,0" VerticalAlignment="Stretch" Width="500" MouseRightButtonUp="InboxView_MouseRightButtonUp"  Grid.ColumnSpan="2" TouchUp="InboxView_TouchUp">
+        </TreeView>
 
-        <ListView x:Name="ServicedView" HorizontalAlignment="Right" Margin="0,98,0,0" VerticalAlignment="Stretch" Width="500" Grid.Column="1"/>
+        <TreeView x:Name="ServicedView" HorizontalAlignment="Right" Margin="0,98,0,0" VerticalAlignment="Stretch" Width="500" Grid.Column="1"/>
         <Viewbox x:Name="InboxViewbox" HorizontalAlignment="Left" Height="98" Margin="10,0,0,0" VerticalAlignment="Top" Width="206">
             <Label x:Name="InboxLabel" Content="inbox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43.28" Width="69.153" FontSize="24"/>
         </Viewbox>

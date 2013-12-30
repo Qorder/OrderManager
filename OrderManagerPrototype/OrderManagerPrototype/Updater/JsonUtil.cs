@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 
 namespace OrderManagerPrototype.Updater
 {
+    using Model;
+
     public class JsonUtil
     {
         static public List<Product> GetProductList(string url)

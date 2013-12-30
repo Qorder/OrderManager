@@ -2,16 +2,18 @@
 
 namespace OrderManagerPrototype.Events
 {
+    using Templates;
+
 	public class OrderEventArgs : EventArgs
 	{
-   		public OrderVisualTemplate VTemplate
+   		public DynamicVisualTemplate VTemplate
 		{
 			get;
 			private set;
 		}
-		
-		
- 		public OrderEventArgs(OrderVisualTemplate vTemplate)
+
+
+        public OrderEventArgs(DynamicVisualTemplate vTemplate)
  	    {
 			this.VTemplate=vTemplate;
  		}

@@ -18,6 +18,8 @@ namespace OrderManagerPrototype
 {
     using Events;
     using Updater;
+    using Model;
+    using Templates;
 
     public partial class MainWindow : Window
     {
@@ -30,37 +32,37 @@ namespace OrderManagerPrototype
             AdjustTreeWidth();
             this.MinWidth = this.Width;
             this.MinHeight = 500;
-           //requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0");
+            //requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0");
             requester = new Requester("http://83.212.118.113/mockJsons/mockCategoryJson.json");
 
             requesterThread = new Thread(
                 o =>
                 {
-                    while(true)
-                    { 
-                    while (!requester.Flag)
+                    while (true)
                     {
-                         requester.Update();
-                    }
-                    requester.Flag = false;
-                    this.Dispatcher.BeginInvoke((Action)(() => {      
-                        foreach (Product product in requester.products)
+                        while (!requester.Flag)
                         {
-                            OrderVisualTemplate mock1 = new OrderVisualTemplate(product);
-                            mock1.removeEvent += removeOrderEvent;
-                            this.InboxView.Items.Add(mock1.OrderTemplate);         
+                            requester.Update();
                         }
-                        this.InboxCounter.Content = this.InboxView.Items.Count;
-                    }));
-                }
-             });
+                        requester.Flag = false;
+                        this.Dispatcher.BeginInvoke((Action)(() =>
+                        {
+                            //FIXME
+                            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(requester.products[0]);
+                            mock1.removeEvent += removeOrderEvent;
+                            this.InboxView.Items.Add(mock1.OrderTemplate);
+
+                            this.InboxCounter.Content = this.InboxView.Items.Count;
+                        }));
+                    }
+                });
             requesterThread.Start();
 
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-			OrderVisualTemplate mock1 =new OrderVisualTemplate();
+            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Product("pname", 1.1, "notes"));
 			mock1.removeEvent+=removeOrderEvent;
 			this.InboxView.Items.Add(mock1.OrderTemplate);
 			this.InboxCounter.Content=this.InboxView.Items.Count;
@@ -149,7 +151,7 @@ namespace OrderManagerPrototype
                 //TODO:Override the view control to create custom event for items.add / remove
                 this.ServicedCounter.Content = this.ServicedView.Items.Count;
                 this.InboxCounter.Content = this.InboxView.Items.Count;
-                this.InboxView.SelectedIndex = -1;
+               // this.InboxView.SelectedIndex = -1;
             }
 
         }
@@ -165,7 +167,7 @@ namespace OrderManagerPrototype
             AdjustTreeWidth();
         }
 
-        private void InboxView_TouchMove(object sender, TouchEventArgs e)
+        private void InboxView_TouchUp(object sender, TouchEventArgs e)
         {
             SwitchOrderTree();
         }

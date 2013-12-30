@@ -10,12 +10,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace OrderManagerPrototype
+namespace OrderManagerPrototype.Templates
 {
     using Events;
     using Updater;
-
-    public class OrderVisualTemplate
+    using Model;
+    public class OrderVisualTemplate :ITemplate
     {
 
         #region Assets Declaretions
@@ -176,7 +176,7 @@ namespace OrderManagerPrototype
                        {
 						  if (removeEvent != null)
 							{
-     						 	removeEvent(this, new OrderEventArgs(this));
+     						 //	removeEvent(this, new OrderEventArgs(this));
 							}
                        };
         }

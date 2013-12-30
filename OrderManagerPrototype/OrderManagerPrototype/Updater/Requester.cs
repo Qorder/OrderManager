@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace OrderManagerPrototype.Updater
 {
     using Events;
+    using Model;
 
     public class Requester
     {

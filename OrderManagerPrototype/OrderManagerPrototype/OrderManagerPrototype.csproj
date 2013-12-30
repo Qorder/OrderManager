@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{67A14449-2477-4A77-A6BE-AAFD7C493F2E}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OrderManagerPrototype</RootNamespace>
     <AssemblyName>OrderManagerPrototype</AssemblyName>
@@ -60,10 +60,12 @@
     <ApplicationDefinition Include="UI\App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Templates\DynamicVisualTemplate.cs" />
+    <Compile Include="Templates\ITemplate.cs" />
     <Compile Include="Updater\JsonUtil.cs" />
     <Compile Include="Updater\JsonParser.cs" />
     <Compile Include="Updater\OrderRequest.cs" />
-    <Compile Include="Updater\Product.cs" />
+    <Compile Include="Model\Product.cs" />
     <Compile Include="Updater\Requester.cs" />
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\OrderEventArgs.cs" />
-    <Compile Include="OrderVisualTemplate.cs" />
+    <Compile Include="Templates\OrderVisualTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
