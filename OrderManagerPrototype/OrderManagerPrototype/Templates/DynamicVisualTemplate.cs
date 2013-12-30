@@ -28,6 +28,8 @@ namespace OrderManagerPrototype.Templates
         Label dateLabel;
         Button removeButton;
         Border border;
+        string tableNumber;
+        string dateTime;
 
         #endregion
 
@@ -36,23 +38,12 @@ namespace OrderManagerPrototype.Templates
 
         #region Constructor
 
-        public DynamicVisualTemplate(List<Product> products)
+        public DynamicVisualTemplate(Order order)
         {
             products = new List<Product>();
-            this.products = products;
-            CurrentHeight = 0;
-            Initialize();
-        }
-
-        //TODO: remove after debugging
-        public DynamicVisualTemplate(Product product)
-        {
-            products = new List<Product>();
-
-            Random rand = new Random();
-            for(int i=0;i<rand.Next(1,5);i++)
-            products.Add(product);
-
+            this.products = order.Products;
+            this.dateTime = order.DateTime;
+            this.tableNumber = order.TableNumber;
             CurrentHeight = 0;
             Initialize();
         }
@@ -77,7 +68,7 @@ namespace OrderManagerPrototype.Templates
 
         int TableNumberWidth
         {
-            get { return 60; }
+            get { return 90; }
         }
 
         int TableNumberHeight
@@ -198,7 +189,8 @@ namespace OrderManagerPrototype.Templates
             dateViewbox.Width = DateWidth;
 
             dateLabel = new Label();
-            dateLabel.Width = DateWidth/3;
+            dateLabel.Width = DateWidth;
+            dateLabel.FontWeight = FontWeights.DemiBold;
             dateLabel.Content = date;
             dateViewbox.Child = dateLabel;
             this.wrapPanel.Children.Add(dateViewbox);
@@ -253,7 +245,7 @@ namespace OrderManagerPrototype.Templates
 
             Label notesLabel = new Label();
             notesLabel.Content = product.Notes;
-            notesLabel.Width = BorderWidth/4;
+            notesLabel.Width = BorderWidth/2;
             notesLabel.Height = ProductFieldHeight;
             CurrentHeight += ProductFieldHeight;
             notesViewbox.Child = notesLabel;
@@ -292,21 +284,13 @@ namespace OrderManagerPrototype.Templates
         {
             InitializeBorder();
             InitializeWrapPanel();
-            InitializeTitle("1B", "16:00 - 1/6/2013");
+            InitializeTitle(tableNumber,dateTime);
 
             foreach (Product product in products)
                 InitializeViewboxesAndLabels(product);     
 
             this.border.Child=wrapPanel;
         }
-
-        #region Add Products
-
-        public void AddProduct(Product product)
-        {
-            products.Add(product);
-        }
-        #endregion
 
         #region Get Template Property
 

@@ -1,7 +1,7 @@
 ﻿OrderManagerPrototype
 
 
-exe
+winexe
 C#
 .cs
 C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\obj\Debug\
@@ -12,7 +12,7 @@ DEBUG;TRACE
 C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\UI\App.xaml
 21460152838
 
-14421271690
+13-345939607
 161663395875
 UI\MainWindow.xaml;UI\Simple Styles.xaml;
 

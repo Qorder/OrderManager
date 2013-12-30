@@ -24,9 +24,7 @@ namespace OrderManagerPrototype.Updater
         public Requester(string requestURL)
         {
             this.requestURL = requestURL;
-            //sw = new Stopwatch();
-            //sw.Start();
-            products = new List<Product>();
+            orders = new List<Order>();
             Flag = false;
         }
 
@@ -40,7 +38,7 @@ namespace OrderManagerPrototype.Updater
             set;
         }
 
-        public List<Product> products
+        public List<Order> orders
         {
             get;
             set;
@@ -50,19 +48,12 @@ namespace OrderManagerPrototype.Updater
 
         public void Update()
         {
-            //Note: changed stopwatch with sleep for performance
-            /* if (sw.ElapsedMilliseconds / 1000 > 5) //66
-             {
-                 sw.Stop();
-                 sw.Reset();
-                 sw.Start();*/
+            System.Threading.Thread.Sleep(3000);
 
-            System.Threading.Thread.Sleep(5000);
+            orders = null;
+            orders = JsonUtil.GetOrderList(requestURL);
 
-            products = null;
-            products = JsonUtil.GetProductList(requestURL);
-
-            if (products != null)
+            if (orders != null)
             {
                 Flag = true;
             }

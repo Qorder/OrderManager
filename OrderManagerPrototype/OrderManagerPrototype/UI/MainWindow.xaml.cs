@@ -32,8 +32,8 @@ namespace OrderManagerPrototype
             AdjustTreeWidth();
             this.MinWidth = this.Width;
             this.MinHeight = 500;
-            //requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/businesses/menus/business?id=0");
-            requester = new Requester("http://83.212.118.113/mockJsons/mockCategoryJson.json");
+            requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/business?id=1");
+            //requester = new Requester("http://83.212.118.113/mockJsons/mockCategoryJson.json");
 
             requesterThread = new Thread(
                 o =>
@@ -47,11 +47,12 @@ namespace OrderManagerPrototype
                         requester.Flag = false;
                         this.Dispatcher.BeginInvoke((Action)(() =>
                         {
-                            //FIXME
-                            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(requester.products[0]);
-                            mock1.removeEvent += removeOrderEvent;
-                            this.InboxView.Items.Add(mock1.OrderTemplate);
-
+                            foreach (Order order in requester.orders)
+                            {
+                                DynamicVisualTemplate mock1 = new DynamicVisualTemplate(order);
+                                mock1.removeEvent += removeOrderEvent;
+                                this.InboxView.Items.Add(mock1.OrderTemplate);
+                            }
                             this.InboxCounter.Content = this.InboxView.Items.Count;
                         }));
                     }
@@ -62,7 +63,10 @@ namespace OrderManagerPrototype
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Product("pname", 1.1, "notes"));
+            List<Product> products =  new List<Product>();
+            products.Add(new Product("name",1.1,"notes"));
+            products.Add(new Product("name2", 1.12, "notes2"));
+            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Order("1","16.00 - 1/1/2006",products));
 			mock1.removeEvent+=removeOrderEvent;
 			this.InboxView.Items.Add(mock1.OrderTemplate);
 			this.InboxCounter.Content=this.InboxView.Items.Count;
