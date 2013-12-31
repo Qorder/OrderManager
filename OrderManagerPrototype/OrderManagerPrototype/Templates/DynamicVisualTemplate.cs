@@ -38,6 +38,13 @@ namespace OrderManagerPrototype.Templates
 
         #region Constructor
 
+        public DynamicVisualTemplate()
+        {
+            products = new List<Product>();
+            CurrentHeight = 0;
+            Initialize();
+        }
+
         public DynamicVisualTemplate(Order order)
         {
             products = new List<Product>();
@@ -220,7 +227,7 @@ namespace OrderManagerPrototype.Templates
             CurrentHeight += ProductFieldHeight;
 
             Label productNameLabel = new Label();
-            productNameLabel.Width = BorderWidth/4;
+            productNameLabel.Width = BorderWidth / 4;
             productNameLabel.FontWeight = FontWeights.Bold;
             productNameLabel.Content = product.Name;
             productViewbox.Child = productNameLabel;
@@ -233,7 +240,7 @@ namespace OrderManagerPrototype.Templates
             CurrentHeight += ProductFieldHeight;
             Label priceLabel = new Label();
             priceLabel.Content = Math.Round(product.Price, 2) + " €";
-            priceLabel.Width = BorderWidth/4;
+            priceLabel.Width = BorderWidth / 4;
 
             priceViewbox.Child = priceLabel;
             this.wrapPanel.Children.Add(priceViewbox);
@@ -241,11 +248,12 @@ namespace OrderManagerPrototype.Templates
             //Notes
             Viewbox notesViewbox = new Viewbox();
             notesViewbox.Height = ProductFieldHeight;
-            notesViewbox.Width = BorderWidth;
+            notesViewbox.Width = product.Notes.Length * 50 + 1;
 
             Label notesLabel = new Label();
             notesLabel.Content = product.Notes;
-            notesLabel.Width = BorderWidth/2;
+
+            notesLabel.Width = product.Notes.Length * 10 + 1;
             notesLabel.Height = ProductFieldHeight;
             CurrentHeight += ProductFieldHeight;
             notesViewbox.Child = notesLabel;

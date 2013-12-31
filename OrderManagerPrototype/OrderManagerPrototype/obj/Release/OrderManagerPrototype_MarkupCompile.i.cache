@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\obj\Debug\
+C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\obj\Release\
 OrderManagerPrototype
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\George\Documents\GitHub\OrderManager\OrderManagerPrototype\OrderManagerPrototype\UI\App.xaml
 21460152838
 
-121537956496
+17-101283691
 161663395875
 UI\MainWindow.xaml;UI\Simple Styles.xaml;
 

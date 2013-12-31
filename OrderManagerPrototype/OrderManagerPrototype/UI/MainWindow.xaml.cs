@@ -65,7 +65,7 @@ namespace OrderManagerPrototype
         {
             List<Product> products =  new List<Product>();
             products.Add(new Product("name",1.1,"notes"));
-            products.Add(new Product("name2", 1.12, "notes2"));
+            products.Add(new Product("name2", 1.12, "this is a really really long message"));
             DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Order("1","16.00 - 1/1/2006",products));
 			mock1.removeEvent+=removeOrderEvent;
 			this.InboxView.Items.Add(mock1.OrderTemplate);
@@ -79,20 +79,7 @@ namespace OrderManagerPrototype
 
 		#region Handle Events
 		
-        void addNewProductEvent(object sender, EventArgs e)
-        {
-            OrderVisualTemplate mock1 = new OrderVisualTemplate();
-            mock1.removeEvent += removeOrderEvent;
-            this.InboxView.Dispatcher.BeginInvoke(
-           (Action)(() =>
-           {
-               this.InboxView.Items.Add(mock1.OrderTemplate);
-               this.InboxCounter.Content = this.InboxView.Items.Count;
-           }));
-
-        }
-
-		//TODO: review remove algorithm
+     		//TODO: review remove algorithm
 	    void removeOrderEvent(object sender, EventArgs e)
         {
 			OrderEventArgs eventArgs = (OrderEventArgs)e;
@@ -148,7 +135,7 @@ namespace OrderManagerPrototype
         {
             if (InboxView.SelectedItem != null)
             {
-                OrderVisualTemplate mock1 = new OrderVisualTemplate();
+                ITemplate mock1 = new DynamicVisualTemplate();
                 mock1.OrderTemplate = (Border)InboxView.SelectedItem;
                 InboxView.Items.Remove(InboxView.SelectedItem);
                 this.ServicedView.Items.Add(mock1.OrderTemplate);

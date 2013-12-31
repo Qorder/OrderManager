@@ -15,7 +15,6 @@ namespace OrderManagerPrototype.Updater
         #region Declarations
 
         string requestURL;
-        //Stopwatch sw;
 
         #endregion
 
@@ -58,7 +57,5 @@ namespace OrderManagerPrototype.Updater
                 Flag = true;
             }
         }
-    
-
     }
 }
