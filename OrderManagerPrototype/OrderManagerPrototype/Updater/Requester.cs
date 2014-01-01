@@ -47,10 +47,10 @@ namespace OrderManagerPrototype.Updater
 
         public void Update()
         {
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(5000);
 
             orders = null;
-            orders = JsonUtil.GetOrderList(requestURL);
+            orders = NetworkUtil.GetOrderList(requestURL);
 
             if (orders != null)
             {

@@ -32,7 +32,7 @@ namespace OrderManagerPrototype
             AdjustTreeWidth();
             this.MinWidth = this.Width;
             this.MinHeight = 500;
-            requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/business?id=1");
+            requester = new Requester("http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/business/1/order?status=PENDING");
             //requester = new Requester("http://83.212.118.113/mockJsons/mockCategoryJson.json");
 
             requesterThread = new Thread(
@@ -64,9 +64,9 @@ namespace OrderManagerPrototype
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             List<Product> products =  new List<Product>();
-            products.Add(new Product("name",1.1,"notes"));
-            products.Add(new Product("name2", 1.12, "this is a really really long message"));
-            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Order("1","16.00 - 1/1/2006",products));
+            products.Add(new Product("name",1.1,"notes",2));
+            products.Add(new Product("name2", 1.12, "this is a really really long message",1));
+            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Order(1,"1","16.00 - 1/1/2006",products));
 			mock1.removeEvent+=removeOrderEvent;
 			this.InboxView.Items.Add(mock1.OrderTemplate);
 			this.InboxCounter.Content=this.InboxView.Items.Count;
@@ -100,6 +100,7 @@ namespace OrderManagerPrototype
 				if(InboxView.Items[i]==eventArgs.VTemplate.OrderTemplate)
 				{
 					InboxView.Items.RemoveAt(i);
+                    OrderHolder.RemoveOrderWithID(eventArgs.VTemplate.ID);
 					this.InboxCounter.Content=this.InboxView.Items.Count;
 					
 					return;
@@ -135,8 +136,11 @@ namespace OrderManagerPrototype
         {
             if (InboxView.SelectedItem != null)
             {
+                
                 ITemplate mock1 = new DynamicVisualTemplate();
                 mock1.OrderTemplate = (Border)InboxView.SelectedItem;
+                NetworkUtil.NotifyWebService((int)mock1.ID);
+                OrderHolder.RemoveOrderWithID(mock1.ID);
                 InboxView.Items.Remove(InboxView.SelectedItem);
                 this.ServicedView.Items.Add(mock1.OrderTemplate);
                 //TODO:Override the view control to create custom event for items.add / remove

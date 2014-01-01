@@ -11,11 +11,12 @@ namespace OrderManagerPrototype.Model
 
         #region Public Constructors
 
-        public Product(string name,double price,string notes)
+        public Product(string name,double price,string notes,int quantity)
         {
             this.Name = name;
             this.Price = price;
             this.Notes = notes;
+            this.Quantity = quantity;
         }
 
         public Product()
@@ -23,6 +24,7 @@ namespace OrderManagerPrototype.Model
             this.Name = null;
             this.Notes = null;
             this.Price=0;
+            this.Quantity = 0;
         }
 
         #endregion
@@ -41,7 +43,7 @@ namespace OrderManagerPrototype.Model
         {
             get
             {
-                return Math.Round(price, 2);
+                return Math.Round(price, 2) * Quantity;
             }
             set
             {
@@ -51,6 +53,13 @@ namespace OrderManagerPrototype.Model
 
         [JsonProperty("uri")]
         public string Notes
+        {
+            get;
+            set;
+        }
+
+        [JsonProperty("quantity")]
+        public int Quantity
         {
             get;
             set;

@@ -61,9 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="Model\Order.cs" />
+    <Compile Include="Model\OrderHolder.cs" />
     <Compile Include="Templates\DynamicVisualTemplate.cs" />
     <Compile Include="Templates\ITemplate.cs" />
-    <Compile Include="Updater\JsonUtil.cs" />
+    <Compile Include="Updater\NetworkUtil.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Updater\Requester.cs" />
     <Page Include="UI\MainWindow.xaml">

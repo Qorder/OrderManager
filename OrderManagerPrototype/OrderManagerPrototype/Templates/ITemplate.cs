@@ -8,6 +8,11 @@
             set;
         }
 
+        int ID
+        {
+            get;
+        }
+
         void Initialize();
     }
 }

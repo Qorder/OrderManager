@@ -28,8 +28,6 @@ namespace OrderManagerPrototype.Templates
         Label dateLabel;
         Button removeButton;
         Border border;
-        string tableNumber;
-        string dateTime;
 
         #endregion
 
@@ -40,17 +38,13 @@ namespace OrderManagerPrototype.Templates
 
         public DynamicVisualTemplate()
         {
-            products = new List<Product>();
             CurrentHeight = 0;
-            Initialize();
+           // Initialize();
         }
 
         public DynamicVisualTemplate(Order order)
         {
-            products = new List<Product>();
-            this.products = order.Products;
-            this.dateTime = order.DateTime;
-            this.tableNumber = order.TableNumber;
+            this.order = order;
             CurrentHeight = 0;
             Initialize();
         }
@@ -59,7 +53,7 @@ namespace OrderManagerPrototype.Templates
 
         #region Properties
 
-        List<Product> products
+        Order order
         {
             get;
             set;
@@ -83,9 +77,19 @@ namespace OrderManagerPrototype.Templates
             get { return 60; }
         }
 
+        int TotalPriceWidth
+        {
+            get { return 90; }
+        }
+
+        int TotalPriceHeight
+        {
+            get { return 60; }
+        }
+
         int DateWidth
         {
-            get { return BorderWidth - ButtonWidth - TableNumberWidth-6; }
+            get { return BorderWidth - ButtonWidth - TotalPriceWidth - TableNumberWidth - 6; }
         }
 
         int DateHeight
@@ -120,7 +124,7 @@ namespace OrderManagerPrototype.Templates
         {
             get
             {
-                return ((products.Count * (ProductFieldHeight) * Product.Fields) + (products.Count * SeparatorWidth) + ButtonHeight);
+                return ((order.Products.Count * (ProductFieldHeight) * Product.Fields) + (order.Products.Count * SeparatorWidth) + ButtonHeight);
             }
         }
 
@@ -141,6 +145,8 @@ namespace OrderManagerPrototype.Templates
         void InitializeBorder()
         {
             border = new Border();
+            if(order!=null)
+            border.Tag = order.OrderID;
             border.BorderBrush = Brushes.Black;
             border.BorderThickness = new Thickness(3);
             border.Width = BorderWidth;
@@ -177,7 +183,7 @@ namespace OrderManagerPrototype.Templates
             wrapPanel.OpacityMask = linearGradientBrush;
         }
 
-        void InitializeTitle(string tableNumber, string date)
+        void InitializeTitle(string tableNumber, string date,double totalPrice)
         {
 
             tableNumberViewbox = new Viewbox();
@@ -201,7 +207,20 @@ namespace OrderManagerPrototype.Templates
             dateLabel.Content = date;
             dateViewbox.Child = dateLabel;
             this.wrapPanel.Children.Add(dateViewbox);
+
+            Viewbox priceViewBox = new Viewbox();
+            priceViewBox.Height = TotalPriceHeight;
+            priceViewBox.Width = TotalPriceWidth;
+
+            Label priceLabel = new Label();
+            priceLabel.Width = TotalPriceWidth/1.5;
+            priceLabel.FontWeight = FontWeights.DemiBold;
+            priceLabel.Content = totalPrice + " €";
+            priceViewBox.Child = priceLabel;
+            this.wrapPanel.Children.Add(priceViewBox);
+
             InitializeRemoveButton();
+
             CurrentHeight = DateHeight;
 
             AddLineSeparator(2);
@@ -229,7 +248,7 @@ namespace OrderManagerPrototype.Templates
             Label productNameLabel = new Label();
             productNameLabel.Width = BorderWidth / 4;
             productNameLabel.FontWeight = FontWeights.Bold;
-            productNameLabel.Content = product.Name;
+            productNameLabel.Content = product.Name + " x" + product.Quantity;
             productViewbox.Child = productNameLabel;
             this.wrapPanel.Children.Add(productViewbox);
 
@@ -239,6 +258,7 @@ namespace OrderManagerPrototype.Templates
             priceViewbox.Width = BorderWidth;
             CurrentHeight += ProductFieldHeight;
             Label priceLabel = new Label();
+            //priceLabel.Content = Math.Round(product.Price * product.Quantity, 2) + " €";
             priceLabel.Content = Math.Round(product.Price, 2) + " €";
             priceLabel.Width = BorderWidth / 4;
 
@@ -292,9 +312,9 @@ namespace OrderManagerPrototype.Templates
         {
             InitializeBorder();
             InitializeWrapPanel();
-            InitializeTitle(tableNumber,dateTime);
+            InitializeTitle(order.TableNumber,order.DateTime,order.TotalPrice);
 
-            foreach (Product product in products)
+            foreach (Product product in order.Products)
                 InitializeViewboxesAndLabels(product);     
 
             this.border.Child=wrapPanel;
@@ -311,6 +331,14 @@ namespace OrderManagerPrototype.Templates
             set
             {
                 border = value;
+            }
+        }
+
+        public int ID
+        {
+            get
+            {
+                return (int)border.Tag;
             }
         }
 

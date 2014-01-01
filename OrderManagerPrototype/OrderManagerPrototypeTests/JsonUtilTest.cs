@@ -17,7 +17,7 @@ namespace OrderManagerPrototypeTests
                 new Product( "mockName", 1, "mockUri" )
             };
 
-            products = JsonUtil.GetProductList("http://83.212.118.113/mockJsons/mockCategoryJson.json");
+            products = NetworkUtil.GetProductList("http://83.212.118.113/mockJsons/mockCategoryJson.json");
 
             Assert.AreEqual(products[0], expectedProducts[0]);
         }
