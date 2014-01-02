@@ -14,7 +14,6 @@
             <RowDefinition/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="mockButton" Content="add mock product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="Button_Click" Height="45" Margin="270,30,0,0"/>
         <TreeView x:Name="InboxView" HorizontalAlignment="Left" Margin="0,98,0,0" VerticalAlignment="Stretch" Width="500" MouseRightButtonUp="InboxView_MouseRightButtonUp"  Grid.ColumnSpan="2" TouchUp="InboxView_TouchUp">
         </TreeView>
 

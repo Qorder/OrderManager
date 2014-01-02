@@ -61,7 +61,7 @@ namespace OrderManagerPrototype
 
         }
 
-        //Add mock product
+        /*Add mock product
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             List<Product> products =  new List<Product>();
@@ -72,7 +72,8 @@ namespace OrderManagerPrototype
 			this.InboxView.Items.Add(mock1.OrderTemplate);
 			this.InboxCounter.Content=this.InboxView.Items.Count;
 		}
-				
+	    */	
+
 	    private void InboxView_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
 	    {
             SwitchOrderTree();
