@@ -61,12 +61,13 @@ namespace OrderManagerPrototype
 
         }
 
+        //Add mock product
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             List<Product> products =  new List<Product>();
-            products.Add(new Product("name",1.1,"notes",2));
+            products.Add(new Product("name",1.1,"notes",2,"attribute-at"));
             products.Add(new Product("name2", 1.12, "this is a really really long message",1));
-            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Order(1,"1","16.00 - 1/1/2006",products));
+            DynamicVisualTemplate mock1 = new DynamicVisualTemplate(new Order(1,"1","16.00 - 1/1/2006",products,10));
 			mock1.removeEvent+=removeOrderEvent;
 			this.InboxView.Items.Add(mock1.OrderTemplate);
 			this.InboxCounter.Content=this.InboxView.Items.Count;
@@ -79,7 +80,7 @@ namespace OrderManagerPrototype
 
 		#region Handle Events
 		
-     		//TODO: review remove algorithm
+     	//TODO: review remove algorithm
 	    void removeOrderEvent(object sender, EventArgs e)
         {
 			OrderEventArgs eventArgs = (OrderEventArgs)e;

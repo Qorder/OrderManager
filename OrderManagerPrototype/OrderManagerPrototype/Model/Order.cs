@@ -10,10 +10,11 @@ namespace OrderManagerPrototype.Model
             Products = new List<Product>();
         }
    
-        public Order(int orderID,string tableNumber,string dateTime,List<Product> products)
+        public Order(int orderID,string tableNumber,string dateTime,List<Product> products,double totalPrice)
         {
            Products = new List<Product>();
             this.TableNumber = tableNumber;
+            this.TotalPrice = totalPrice;
             this.DateTime = dateTime;
             this.Products = products;
             this.OrderID = orderID;
@@ -41,15 +42,8 @@ namespace OrderManagerPrototype.Model
 
         public double TotalPrice
         {
-            get
-            {
-                double price =0;
-                foreach (Product product in Products)
-                    price += product.Price;
-
-                return price;
-            }
-            
+            get;
+            set;
         }
 
         public List<Product> Products

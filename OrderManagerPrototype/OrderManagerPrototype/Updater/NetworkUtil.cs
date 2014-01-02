@@ -3,6 +3,7 @@ using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace OrderManagerPrototype.Updater
 {
@@ -31,21 +32,30 @@ namespace OrderManagerPrototype.Updater
             }
         }
 
-        public static void NotifyWebService(int id,string uript1 = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/order/", string uript2 = "/order?status=ACCEPTED")
+        public static void NotifyWebService(int id, string uript1 = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/order/", string uript2 = "/order?status=ACCEPTED")
         {
-            try
+            using (var wb = new WebClient())
             {
-                using (var wb = new WebClient())
+                Console.WriteLine("Notified " + id);
+                Byte[] bytes = new byte[] { 0x20 };
+                Thread notifierThread = new Thread(
+                o =>
                 {
-                    Console.WriteLine("Notified " +id);
-                    Byte[] bytes = new byte[] { 0x20};
-                    var response = wb.UploadData(uript1 + id + uript2, "POST", bytes);
-                }
-            }catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                    try
+                    {
+                        var response = wb.UploadData(uript1 + id + uript2, "POST", bytes);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                });
+                notifierThread.IsBackground = true;
+                notifierThread.Start();
             }
         }
+
+        
 
         public static List<Order> GetOrderList(string url)
         {
@@ -71,7 +81,7 @@ namespace OrderManagerPrototype.Updater
 
                     orderitem.TableNumber = (string)orderArrayItem["tableNumber"];
                     orderitem.DateTime = (string)orderArrayItem["dateTime"];
-                    //orderitem.TotalPrice = (double)orderArrayItem["totalPrice"];
+                    orderitem.TotalPrice = (double)orderArrayItem["totalPrice"];
                     JArray orders = (JArray)orderArrayItem["orderedProducts"];
 
                     foreach (JObject order in orders)
@@ -81,6 +91,7 @@ namespace OrderManagerPrototype.Updater
                         JObject orderDTO = (JObject)order["productDTO"];
                         product.Name = (string)orderDTO["name"];
                         product.Price = (double)orderDTO["price"];
+                        product.Attributes = (string)order["attributes"];
                         product.Quantity = (int)order["quantity"];
                         product.Notes = (string)order["notes"];
                         productList.Add(product);

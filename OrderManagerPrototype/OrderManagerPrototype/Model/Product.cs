@@ -11,12 +11,13 @@ namespace OrderManagerPrototype.Model
 
         #region Public Constructors
 
-        public Product(string name,double price,string notes,int quantity)
+        public Product(string name,double price,string notes,int quantity,string attributes=" ")
         {
             this.Name = name;
             this.Price = price;
             this.Notes = notes;
             this.Quantity = quantity;
+            this.Attributes = attributes;
         }
 
         public Product()
@@ -65,11 +66,33 @@ namespace OrderManagerPrototype.Model
             set;
         }
 
+        [JsonProperty("attributes")]
+        public string Attributes
+        {
+            get;
+            set;
+        }
+
         static public int Fields
         {
             get
             {
                 return 3;
+            }
+        }
+
+        #endregion
+
+        #region Public Helper Properties
+
+        public String Title
+        {
+            get
+            {
+                if (Attributes != null)
+                    return (this.Name + " " + Attributes.Replace("-", " ") + "x" + Quantity);
+                else
+                    return (this.Name + " x" + Quantity);
             }
         }
 

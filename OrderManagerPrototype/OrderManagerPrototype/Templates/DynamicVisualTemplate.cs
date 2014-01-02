@@ -79,7 +79,7 @@ namespace OrderManagerPrototype.Templates
 
         int TotalPriceWidth
         {
-            get { return 90; }
+            get { return 100; }
         }
 
         int TotalPriceHeight
@@ -246,9 +246,9 @@ namespace OrderManagerPrototype.Templates
             CurrentHeight += ProductFieldHeight;
 
             Label productNameLabel = new Label();
-            productNameLabel.Width = BorderWidth / 4;
+            productNameLabel.Width = product.Title.Length * 10 + 1;
             productNameLabel.FontWeight = FontWeights.Bold;
-            productNameLabel.Content = product.Name + " x" + product.Quantity;
+            productNameLabel.Content = product.Title;
             productViewbox.Child = productNameLabel;
             this.wrapPanel.Children.Add(productViewbox);
 
