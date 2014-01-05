@@ -32,7 +32,7 @@ namespace OrderManagerPrototype.Updater
             }
         }
 
-        public static void NotifyWebService(int id, string uript1 = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/order/", string uript2 = "/order?status=ACCEPTED")
+        public static void NotifyWebService(int id,string status, string uript1 = "http://snf-185147.vm.okeanos.grnet.gr:8080/qorderws/orders/order/", string uript2 = "/order?status=")
         {
             using (var wb = new WebClient())
             {
@@ -43,7 +43,7 @@ namespace OrderManagerPrototype.Updater
                 {
                     try
                     {
-                        var response = wb.UploadData(uript1 + id + uript2, "POST", bytes);
+                        var response = wb.UploadData(uript1 + id + uript2 + status, "POST", bytes);
                     }
                     catch (Exception ex)
                     {

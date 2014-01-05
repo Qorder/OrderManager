@@ -91,6 +91,8 @@ namespace OrderManagerPrototype
 				if(ServicedView.Items[i]==eventArgs.VTemplate.OrderTemplate)
 				{
 					ServicedView.Items.RemoveAt(i);
+                    NetworkUtil.NotifyWebService((int)eventArgs.VTemplate.ID, "SERVICED");
+                    OrderHolder.RemoveOrderWithID(eventArgs.VTemplate.ID);
 					this.ServicedCounter.Content=this.ServicedView.Items.Count;
 
 					return;
@@ -141,7 +143,7 @@ namespace OrderManagerPrototype
                 
                 ITemplate mock1 = new DynamicVisualTemplate();
                 mock1.OrderTemplate = (Border)InboxView.SelectedItem;
-                NetworkUtil.NotifyWebService((int)mock1.ID);
+                NetworkUtil.NotifyWebService((int)mock1.ID,"ACCEPTED");
                 OrderHolder.RemoveOrderWithID(mock1.ID);
                 InboxView.Items.Remove(InboxView.SelectedItem);
                 this.ServicedView.Items.Add(mock1.OrderTemplate);

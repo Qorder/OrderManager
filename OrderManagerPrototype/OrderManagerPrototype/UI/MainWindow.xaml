@@ -22,7 +22,7 @@
             <Label x:Name="InboxLabel" Content="inbox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43.28" Width="69.153" FontSize="24"/>
         </Viewbox>
         <Viewbox x:Name="ServicedViewbox" HorizontalAlignment="Right" Height="98" Margin="0,0,50,0" VerticalAlignment="Top" Width="228" Grid.Column="1">
-            <Label x:Name="ServicedLabel" Content="serviced" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43.28" Width="101.114" FontSize="24"/>
+            <Label x:Name="ServicedLabel" Content="accepted" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="104" FontSize="24"/>
         </Viewbox>
         <Label x:Name="InboxCounter" Content="0" HorizontalAlignment="Left" Margin="162,53,0,0" VerticalAlignment="Top" RenderTransformOrigin="37.522,0.77" FontSize="24"/>
         <Label x:Name="ServicedCounter" Content="0" HorizontalAlignment="Right" Margin="0,53,40,0" VerticalAlignment="Top" RenderTransformOrigin="37.522,0.77" FontSize="24" Grid.Column="1"/>
