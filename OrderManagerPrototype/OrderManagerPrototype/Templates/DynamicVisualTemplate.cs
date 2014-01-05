@@ -191,9 +191,9 @@ namespace OrderManagerPrototype.Templates
             tableNumberViewbox.Width = TableNumberWidth;
 
             tableNumberLabel = new Label();
-            tableNumberLabel.FontWeight = FontWeights.Bold; 
-            tableNumberLabel.Width = TableNumberWidth / 2;
-            tableNumberLabel.Content = tableNumber;
+            tableNumberLabel.FontWeight = FontWeights.Bold;
+            tableNumberLabel.Width = TableNumberWidth / 1.5;
+            tableNumberLabel.Content = tableNumber + " #" + order.OrderID;
             tableNumberViewbox.Child = tableNumberLabel;
             this.wrapPanel.Children.Add(tableNumberViewbox);
 
